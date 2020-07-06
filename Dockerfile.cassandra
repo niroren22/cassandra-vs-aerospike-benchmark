@@ -1,0 +1,15 @@
+FROM python:3.8-alpine
+
+#ADD test_cassandra.py /
+
+ADD benchmark_driver.py /
+ADD cassandra_benchmark.py /
+ADD results.py /
+
+COPY mock_data profiles
+
+RUN pip install cassandra-driver
+
+#RUN pip install --user aerospike
+
+CMD ["python", "./cassandra_benchmark.py"]

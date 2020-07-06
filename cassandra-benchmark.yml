@@ -1,0 +1,14 @@
+version: '3.7'
+services:
+
+  cassandra-tester:
+    build: 
+      context: .
+      dockerfile: Dockerfile.cassandra
+    depends_on:
+      - cassandra
+
+  cassandra:
+    image: bitnami/cassandra:latest
+    ports: 
+      - '9042:9042'

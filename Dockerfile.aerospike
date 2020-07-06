@@ -1,0 +1,18 @@
+#FROM python:2.7-alpine
+
+FROM catenae/aerospike-client-python
+
+ADD benchmark_driver.py /
+ADD aerospike_benchmark.py /
+ADD results.py /
+
+COPY mock_data profiles
+
+#RUN apk update
+#RUN apt-get -y install python-dev
+#RUN apt-get -y install libssl-dev
+#RUN apk add --no-cache python-dev
+#RUN apk add --no-cache libressl-dev
+#RUN pip install --no-cache-dir aerospike
+
+CMD ["python", "./aerospike_benchmark.py"]

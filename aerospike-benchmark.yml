@@ -1,0 +1,32 @@
+version: '3.7'
+services:
+
+  aerospike-tester:
+    build: 
+      context: .
+      dockerfile: Dockerfile.aerospike
+    depends_on:
+      - aerospike
+
+  aerospike:
+    image: aerospike/aerospike-server:latest
+    #command: ["--config-file", "/run/secrets/aerospike.conf"]
+    ports:
+      - '3000:3000'
+    #secrets:
+    #  - source: conffile
+    #    target: aerospike.conf
+    #    mode: 0440
+    #volumes: 
+    #  - :/etc/aerospike/:ro
+
+secrets:
+  conffile:
+    file: ./aerospike.conf
+
+  #aerospike:
+  #  image: aerospike:latest
+  #  ports:
+  #    - '3000:3000'
+  #  volumes: 
+  #    - '$PWD:/etc/aerospike'
