@@ -18,5 +18,16 @@ In the end of the benchmark execution, a score will be presented in meanse of re
 
 
 ## Requirements
+Docker and Docker Compose are required to run this benchmark (run on linux deamon).
 
-Docker and Docker Compose are required to run this benchmark
+## How to run
+
+To run Cassandra benchmark:
+```
+run_cassandra_benchmark.sh
+```
+
+To run Aerospike benchmark
+```
+run_aerospike_benchmark.sh
+```
