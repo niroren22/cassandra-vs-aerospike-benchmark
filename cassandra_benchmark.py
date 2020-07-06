@@ -41,9 +41,7 @@ class CassandraBenchmark(BenchmarkDriver):
 def main():
     print('Testing Apache Cassandra ' + cassandra.__version__)
     
-    # Cluster configuration
     auth_provider = PlainTextAuthProvider(username='cassandra', password='cassandra')
-    cluster = Cluster(['cassandra'], port=9042, auth_provider=auth_provider)
 
     # Waiting for cassandra database to initialize... 
     connect_success = False
@@ -53,6 +51,7 @@ def main():
     while (not connect_success) and (attempts < max_attempts):
         print('Waiting for Cassandra to init, attempt #' + str(attempts+1))
         try:
+            cluster = Cluster(['cassandra'], port=9042, auth_provider=auth_provider)
             session = cluster.connect()
             connect_success = True
         except Exception as e:

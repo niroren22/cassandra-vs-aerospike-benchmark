@@ -40,20 +40,16 @@ class BenchmarkDriver(object):
             print('Thread ' + thread_id + ' is inserting profiles from ' + profiles_json)
             with open(profiles_json) as mf:
                 profiles = json.load(mf)
-            i = 0
-            #bulk_start = float(time.time())
+
             for prof in profiles:
                 start_time = results.get_time_micro()
-                #print('starting insert #' + str(i) + ' at time: ' + str(start_time))
+
                 try:
                     self.exec_write_to_db(prof)
                     results.operation_finished(results.get_time_micro() - start_time)
                 except Exception as e:
                     print('Write error: {0}'.format(e))
-                
-                i += 1
-                #if i % 100 == 0 and i > 0:
-                #    print('Wrote {0} profiles at T = {1:.2f} sec'.format(i, float(time.time()) - bulk_start))
+
             print('Thread ' + thread_id + ' completed inserting profiles from ' + profiles_json)
 
         results.thread_finished()
@@ -71,7 +67,6 @@ class BenchmarkDriver(object):
 
    
     def run(self):
-        #profile_files = glob.glob('profiles/*.json')
         profile_files = glob.glob('profiles/*.json')
         max_profile_files = len(profile_files)
 
@@ -86,7 +81,6 @@ class BenchmarkDriver(object):
         for i in range(self.writers_count):
             slice = []
             slice_size = min(int(max_profile_files / self.writers_count), max_profile_files - i)
-            #slice_size = min(int(len(profile_files) / math.ceil(num_of_threads)), len(profile_files) - i)
 
             for j in range(start_index, start_index + slice_size):
                 slice.append(profile_files[j])                              

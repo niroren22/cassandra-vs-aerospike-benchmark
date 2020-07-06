@@ -43,9 +43,6 @@ class AerospikeBenchmark(BenchmarkDriver):
 def main():
     print('Testing Aerospike Database')
     
-    # Waiting for aerospike database to initialize... 
-    time.sleep(20)
-
     config = {
         'hosts': [
             ('aerospike', 3000)
@@ -55,19 +52,38 @@ def main():
         }
     }
 
-    try:
-        client = aerospike.client(config)
-        client.connect()
-    except Exception as e:
-        print('Failed to connect to aerospike database, error: {0}'.format(e), file=sys.stderr)
-        sys.exit(1)
+    # Waiting for Aerospike database to initialize... 
+    connect_success = False
+    max_attempts = 15
+    attempts = 0
+    
+    while (not connect_success) and (attempts < max_attempts):
+        print('Waiting for Aerospike to init, attempt #' + str(attempts+1))
+        try:
+            client = aerospike.client(config)
+            client.connect()
+            connect_success = True
+        except Exception as e:
+            last_error = e
+            time.sleep(5)
+            
+        attempts += 1
 
+    if not connect_success:
+        print('Failed to connect to Aerospike, error: {0}'.format(last_error), file=sys.stderr)
+        exit(1)
+
+    time.sleep(10)
+
+    print('Connection to Aerospike established.')
 
     client = aerospike.client(config).connect()
-
-    benchmark = AerospikeBenchmark(client, 10, 10)
+    try:
+        benchmark = AerospikeBenchmark(client, 10, 10)
     
-    benchmark.run()
+        benchmark.run()
+    finally:
+        client.close()
 
 
 if __name__ == '__main__':

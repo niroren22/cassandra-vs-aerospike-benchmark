@@ -1,5 +1,5 @@
 #!/bin/bash
 
-docker-compose cassandra-benchmark.yml -t cassandra-benchmark:latest build
+docker-compose -f cassandra-benchmark.yml build
 
-docker-compose cassandra-benchmark:latest up
+docker-compose -f cassandra-benchmark.yml up

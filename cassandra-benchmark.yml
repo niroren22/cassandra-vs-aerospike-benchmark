@@ -5,8 +5,7 @@ services:
     build: 
       context: .
       dockerfile: Dockerfile.cassandra
-    depends_on:
-      - cassandra
+
 
   cassandra:
     image: bitnami/cassandra:latest
