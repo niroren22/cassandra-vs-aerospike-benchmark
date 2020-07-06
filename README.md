@@ -11,7 +11,7 @@ In the end of the benchmark execution, a score will be presented in meanse of re
 ## Results
 
 |       Database          | Read Latency[us] | Read Throughput[OPS] | Write Latency[us] | Write Throughput[OPS] |
-| ----------------------- | ---------------- | -------------------- | ----------------- | --------------------- |
+| ----------------------- | :--------------: | :------------------: | :---------------: | :-------------------: |
 | Aerospike 5.0.0.7       |     1099.06      |        8966.75       |      1098.12      |        8873.31        |
 | Apache Cassandra 3.24.0 |     9939.06      |        1003.64       |      7629.58      |        1303.78        | 
 |       Result            |   x9.04 to AS    |      x8.93 to AS     |    x6.95 to AS    |       x6.8 to AS      |
